@@ -25,16 +25,16 @@ nightmare
     //wait 4 seconds fofr the website to load
   .wait(4000)
 
-  //.click('span#number_awards')
-
+  .click('span#number_awards')
   //wait 2 seconds for page to fully load
   .evaluate(function gatherSchoolarships() {
     var awards = [];
     //create an array to hold all the awardsd aka schoolarships  we find by the below codoe
     $('.clearxxx').each(function getEachSchoolarship() {
+
       item = {}
-      item['title'] = $(this).text()
-      item['link'] = $(this).attr('href')
+      item['title'] = $(this).find('a').text();
+      item['link'] = $(this).find('a').attr('href');
       awards.push(item)
     })
     return awards
