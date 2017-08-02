@@ -27,21 +27,26 @@ nightmare
 //wait 2 seconds before we start scraping
   .wait(2000)
   .evaluate(function gatherSchoolarships() {
-    var awards = [];
+    var fastwebSchoolarships = [];
     //create an array to hold all the awardsd aka schoolarships  we find by the below codoe
     $('.clearxxx').each(function getEachSchoolarship() {
       item = {}
       item['title'] = $(this).find('a').text();
       item['link'] = $(this).find('a').attr('href');
-      awards.push(item)
+      item['award_size'] = $(this).find('.award').text()
+      item['deadline'] = $(this).find('.deadline').text()
+      fastwebSchoolarships.push(item)
     })
-    return awards
+    return fastwebSchoolarships
   })
   .end()
   .then(function(result){
-    for(awards in result){
-      console.log(result[awards].title);
-      console.log(result[awards].link);
+    for(fastwebSchoolarships in result){
+      console.log(result[fastwebSchoolarships].title);
+      console.log(result[fastwebSchoolarships].link);
+      console.log(result[fastwebSchoolarships].award_size);
+      console.log(result[fastwebSchoolarships].deadline);
+
       console.log('\n');
     }
   })
