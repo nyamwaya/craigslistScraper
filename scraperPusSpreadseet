@@ -46,7 +46,6 @@ nightmare
 
   //then add it to google
   .then(function(result){
-    for(fastwebSchoolarships in result){
       //do googel stuff
 
 
@@ -178,21 +177,27 @@ nightmare
 
       function appendData(auth) {
         var sheets = google.sheets('v4');
+        
+        var values = [];
+        for (var fastwebSchoolarships in result) {
+        	values.push([
+                         result[fastwebSchoolarships].title,
+                         result[fastwebSchoolarships].link,
+                         result[fastwebSchoolarships].award_size,
+                         result[fastwebSchoolarships].deadline,
+
+                       ]);
+        }
+        
+        
+        
         sheets.spreadsheets.values.append({
           auth: auth,
           spreadsheetId: '13qqcZGMGnBIUo1OhCfRJhp9TQY5ljRVNecczjz4Kzh4',
           range: 'Sheet1!A2:G', //Change Sheet1 if your worksheet's name is something else
           valueInputOption: "USER_ENTERED",
           resource: {
-              "values": [
-                [
-                  result[fastwebSchoolarships].title,
-                  result[fastwebSchoolarships].link,
-                  result[fastwebSchoolarships].award_size,
-                  result[fastwebSchoolarships].deadline,
-
-                ]
-              ]
+              "values": values
           }
         }, (err, response) => {
           if (err) {
@@ -211,5 +216,5 @@ nightmare
       console.log(result[fastwebSchoolarships].deadline);
 
       console.log('\n');
-    }
+    
   })
